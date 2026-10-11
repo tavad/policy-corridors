@@ -16,14 +16,14 @@ Archived on Zenodo: [10.5281/zenodo.22274239](https://doi.org/10.5281/zenodo.222
 | `R/panel.R` | The canonical 217-economy sample drawn from the detailed panel (drops the eight World Bank aggregates). Sourced by the scripts below; not run on its own |
 | `R/historical_test.R` | Long-panel adherence, 1960–2023: by era, growth take-offs, and the event-time series (**Figures 2 and 4, Table 3, §4.2 and §4.5**). Writes `data/historical_20260816/` |
 | `R/necessity_test.R` | The corridor test (below / inside / above each bound) and the necessity check (**Figure 3, Table 5, §4.4 and §4.6**). Writes `data/necessity_20260816/` |
-| `R/joint_compliance.R` | The joint-score forward outcomes, the pre-trends check and Benjamini–Hochberg multiplicity (**§4.6 and the supplementary material, joint-score group**). Writes `data/joint_results_table.csv` |
+| `R/joint_compliance.R` | The joint-score forward outcomes, the pre-trends check and Benjamini–Hochberg multiplicity (**§4.6; the full estimation grid**). Writes `data/joint_results_table.csv` |
 | `R/fetch_external.R` | Downloads the three external series into `data/ext/`: the Worldwide Governance Indicators (World Bank API, source 3) and the Romelli central bank independence file, which also carries the Laeven–Valencia crisis dummies and the democracy index. Not shipped, run first |
 | `R/external.R` | Shared set-up for the two scripts below: panels, take-off starts, crisis onsets. Sourced, not run on its own |
-| `R/foundations_validation.R` | Bound perturbations, random corridors of equal width, crisis validation, institutional quality and central bank independence (**Tables C.1 and C.2, §4.5 and §4.6**). Writes `data/foundations/` |
+| `R/foundations_validation.R` | Bound perturbations, random corridors of equal width, crisis validation, institutional quality and central bank independence (**Tables B.1 and B.2, §4.5 and §4.6**). Writes `data/foundations/` |
 | `R/crisis_table.R` | New crisis periods by corridors maintained (**Table 6**). Writes `data/foundations/` |
-| `R/takeoff_threshold_sweep.R` | The take-off gap under 60 rules (**Table C.3**). Writes `data/foundations/` |
+| `R/takeoff_threshold_sweep.R` | The take-off gap under 60 rules (**Table B.3**). Writes `data/foundations/` |
 | `R/export_adherence_panel.R` | Writes the released adherence dataset, both panels, to `data/` |
-| `R/make_tables.R` | Renders **Tables 2, 3, 4, 5, 6, B.1 and C.1–C.3** from the panels and the intermediates above. Writes `outputs/` |
+| `R/make_tables.R` | Renders **Tables 2, 3, 4, 5, 6, A.1 and B.1–B.3** from the panels and the intermediates above. Writes `outputs/` |
 | `R/make_figures.R` | Renders **Figures 1–4** from `outputs/T3_adherence.csv` and the intermediates. Writes `plots/` |
 | `data/magic_squares_data_clean.csv` | The detailed panel, 2008–2023, 217 economies (five indicators). Frozen January 2026 |
 | `data/wdi_long_1960_2023.csv` | The long panel, 1960–2023, three back-reaching indicators (World Bank WDI, pulled 4/16 August 2026) |
@@ -34,8 +34,8 @@ Archived on Zenodo: [10.5281/zenodo.22274239](https://doi.org/10.5281/zenodo.222
 
 The generated table files are named by build order, not by manuscript number:
 `T3_adherence` → **Table 2**, `T4_adherence_by_era` → **Table 3**, `T6_shock_years` → **Table 4**,
-`T5_corridor_test` → **Table 5**, `T7_crisis_onsets` → **Table 6**, `T2_data_coverage` → **Table B.1**,
-`TC1_bound_shifts`, `TC2_other_systems`, `TC3_takeoff_rules` → **Tables C.1–C.3**. Table 1 is the framework's
+`T5_corridor_test` → **Table 5**, `T7_crisis_onsets` → **Table 6**, `T2_data_coverage` → **Table A.1**,
+`TC1_bound_shifts`, `TC2_other_systems`, `TC3_takeoff_rules` → **Tables B.1–B.3**. Table 1 is the framework's
 normative bounds and is stated in the manuscript, not computed.
 
 ## Reproducing the figures and tables
@@ -53,7 +53,7 @@ Rscript R/foundations_validation.R   # -> data/foundations/  (about 50 minutes)
 Rscript R/crisis_table.R         # -> data/foundations/
 Rscript R/takeoff_threshold_sweep.R  # -> data/foundations/
 Rscript R/export_adherence_panel.R   # -> data/adherence_panel_*.csv
-Rscript R/make_tables.R          # -> outputs/  (Tables 2-6, B.1, C.1-C.3)
+Rscript R/make_tables.R          # -> outputs/  (Tables 2-6, A.1, B.1-B.3)
 Rscript R/make_figures.R         # -> plots/    (Figures 1-4)
 ```
 
