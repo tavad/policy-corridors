@@ -13,12 +13,12 @@ BLUE <- "#1f77b4"; ORANGE <- "#ff7f0e"
 INK  <- "#1a1a1a"; MUTED <- "#5a5a5a"; GRID <- "#d8d8d8"; PALE <- "#c3ced6"
 
 HAVE_RAGG <- requireNamespace("ragg", quietly = TRUE)
-open_png <- function(name, w, h) {
+open_png <- function(name, w, h, ps = 9) {
   path <- file.path(OUT, name)
-  if (HAVE_RAGG) ragg::agg_png(path, width = w, height = h, units = "in", res = 300,
-                               background = "white", pointsize = 9)
-  else png(path, width = w, height = h, units = "in", res = 300, type = "cairo",
-           bg = "white", pointsize = 9)
+  if (HAVE_RAGG) ragg::agg_png(path, width = w, height = h, units = "in", res = 1000,
+                               background = "white", pointsize = ps)
+  else png(path, width = w, height = h, units = "in", res = 1000, type = "cairo",
+           bg = "white", pointsize = ps)
   path
 }
 
@@ -52,8 +52,8 @@ t3  <- read.csv(file.path(BASE, "outputs/T3_adherence.csv"))
 dev <- setNames(t3$dev_pct, t3$indicator)[ORDER]
 tra <- setNames(t3$tra_pct, t3$indicator)[ORDER]
 
-open_png("F1_adherence.png", 7.2, 5.3)
-par(mar = c(6.4, 12.0, 4.4, 1.4), family = "sans", las = 1)
+open_png("F1_adherence.png", 7.2, 5.6)
+par(mar = c(8.8, 12.0, 4.4, 1.4), family = "sans", las = 1)
 plot.new(); plot.window(xlim = c(0, 70), ylim = c(0.4, length(ORDER) + 0.6))
 abline(v = seq(0, 70, 10), col = GRID, lwd = 0.7)
 abline(v = 50, col = MUTED, lwd = 1.1, lty = 2)
@@ -86,9 +86,9 @@ invisible(dev.off())
 # F2: adherence 1960-2023, all countries against a balanced set
 ay <- read.csv(file.path(BASE, "data/historical_20260816/adherence_by_year.csv"))
 
-open_png("F2_adherence_1960_2023.png", 7.2, 6.0)
+open_png("F2_adherence_1960_2023.png", 7.2, 6.3)
 layout(matrix(1:2, ncol = 1), heights = c(2.5, 1))
-par(oma = c(5.2, 0, 0, 0), mar = c(0.4, 4.6, 4.2, 1.4), family = "sans", las = 1)
+par(oma = c(7.4, 0, 0, 0), mar = c(0.4, 4.6, 4.2, 1.4), family = "sans", las = 1)
 plot.new(); plot.window(xlim = range(ay$year), ylim = c(0.5, 1.75))
 abline(h = seq(0.6, 1.7, 0.2), col = GRID, lwd = 0.7)
 lines(ay$year, ay$mean_K3_all, col = PALE, lwd = 2.4)
@@ -131,9 +131,9 @@ SIDES <- c("below", "inside", "above")
 GRPS  <- c("Developed", "Developing")
 GLAB  <- c(Developed = "Developed", Developing = "Transforming")
 
-open_png("F3_corridor_test.png", 7.8, 5.4)
+open_png("F3_corridor_test.png", 7.8, 5.7, ps = 12.5)
 layout(matrix(1:10, nrow = 2, byrow = TRUE))
-par(oma = c(6.2, 4.4, 5.0, 0.8), mar = c(0.7, 0.6, 1.8, 0.4), family = "sans", las = 1)
+par(oma = c(7.6, 4.4, 5.0, 0.8), mar = c(0.7, 0.6, 1.8, 0.4), family = "sans", las = 1)
 for (g in GRPS) for (ind in ORDER) {
   z <- asym[asym$group == g & asym$indicator == ind, ]
   v <- setNames(rep(NA_real_, 3), SIDES)
@@ -180,8 +180,8 @@ PANEL_REF <- et$panel_ref[1]
 CASE <- c("Korea, Rep.", "China"); CLAB <- c("Korea", "China")
 CCOL <- c(BLUE, ORANGE); CPCH <- c(19, 17)
 
-open_png("F4_korea_china.png", 7.4, 5.4)
-par(oma = c(5.0, 0, 0, 0), mar = c(4.2, 4.8, 4.6, 1.6), family = "sans", las = 1)
+open_png("F4_korea_china.png", 7.4, 5.7)
+par(oma = c(7.6, 0, 0, 0), mar = c(4.2, 4.8, 4.6, 1.6), family = "sans", las = 1)
 plot.new(); plot.window(xlim = c(0, 2.6), ylim = c(2.5, 11.4))
 abline(h = seq(3, 11, 2), col = GRID, lwd = 0.7)
 abline(v = seq(0, 2.5, 0.5), col = GRID, lwd = 0.7)
